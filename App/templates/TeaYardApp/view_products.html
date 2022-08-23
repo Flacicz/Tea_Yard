@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="col" style="margin:0 auto;">
+    <div class="card" style="width: 25rem;">
+        {% if products_item.photo %}
+        <img src="{{ products_item.photo.url }}" class="card-img-top" width="100%"
+             height="260">
+        {% else %}
+        <img class="card-img-top" href="{% static 'PDF/no_image.png' %}"
+             width="100%" height="260"/>
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ products_item.title }}</h5>
+            <p class="card-text">{{ products_item.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                {% if products_item.price|length==1 %}
+                <h6 class="text-muted">{{ products_item.price }} руб/50г</h6>
+                {% else %}
+                <h6 class="text-muted">{{ products_item.price }}0 руб/50г</h6>
+                {% endif %}
+<!--                <form action="{% url 'cart:cart_add' products_item.id %}" method="post">-->
+<!--                    {{ cart_product_form }}-->
+<!--                    {% if request.user.is_authenticated %}-->
+<!--                    <button type="submit" class="btn btn-secondary">В корзину</button>-->
+<!--                    {% else %}-->
+<!--                    <button type="button" class="btn btn-danger" data-bs-toggle="popover"-->
+<!--                            data-bs-content="Зарегестрируйтесь чтобы класти товары в корзину и делать заказы">В-->
+<!--                        корзину-->
+<!--                    </button>-->
+<!--                    {% endif %}-->
+<!--                    {% csrf_token %}-->
+<!--                </form>-->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,125 @@
+{% load tea_tags %}
+{% get_list_categories as categories %}
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Главная</a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{{ cart.clear }}">jx</a>-->
+<!--            </li>-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">Контакты</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link active" aria-current="page" href="#">Наш VK</a>
+                        <a class="nav-link active" aria-current="page" href="#">Наш Instagram</a>
+                        <a class="nav-link active" aria-current="page" href="#">Наш Telegram</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">Каталог</a>
+                <ul class="dropdown-menu">
+                    <li>
+                        {% for item in categories %}
+                        <a href="{% url 'category' item.pk %}"
+                           class="nav-link">{{ item.title }}</a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Выход</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'register' %}" class="nav-link">Регистрация</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'login' %}" class="nav-link">Авторизация</a>
+            </li>
+            {% endif %}
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="{% url 'cart:cart_detail' %}">Корзина</a>-->
+<!--            </li>-->
+        </ul>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+             aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Чайный дворик</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Выход</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'register' %}" class="nav-link">Регистрация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">Авторизация</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">Контакты</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="nav-link active" aria-current="page" href="#">Наш VK</a>
+                                <a class="nav-link active" aria-current="page" href="#">Наш Instagram</a>
+                                <a class="nav-link active" aria-current="page" href="#">Наш Telegram</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                           aria-expanded="false">Каталог</a>
+                        <ul class="dropdown-menu">
+                            <li>{% for item in categories %}
+                                <a href="{% url 'category' item.pk %}"
+                                   class="nav-link">{{ item.title }}</a>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Чайный дворик</h1>
+            <p class="lead text-muted">Something short and leading about the collection below—its contents, the
+                creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
+                entirely.</p>
+
+            <div>
+                {% for item in categories %}
+                <a href="{% url 'category' item.pk %}"
+                   class="btn btn-primary my-2" style="width:100px;">{{ item.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

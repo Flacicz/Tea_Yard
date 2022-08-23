@@ -1,0 +1,18 @@
+{% block downbar %}
+<footer class="text-muted py-5">
+    {% for item in page_obj.paginator.page_range %}
+    <nav aria-label="Page navigation example" style="margin-top:18px">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="?page={{ item.has_previous }}">Предыдущая</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ item }}">{{ item }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ item.has_next }}">Следущая</a></li>
+        </ul>
+    </nav>
+    {% endfor %}
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Вернуться на верх</a>
+        </p>
+    </div>
+</footer>
+{% endblock %}

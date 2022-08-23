@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+{% for item in products %}
+<div class="col" style="">
+    <div class="card" style="width: 18rem;">
+        {% if item.photo %}
+        <a href="{{ item.get_absolute_url }}"><img src="{{ item.photo.url }}" class="card-img-top" width="100%"
+                                                   height="260"></a>
+        {% else %}
+        <a href="{{ item.get_absolute_url }}"><img class="card-img-top" href="{% static 'PDF/no_image.png' %}"
+                                                   width="100%" height="260"/></a>
+        {% endif %}
+        <div class="card-body">
+            <a href="{{ item.get_absolute_url }}" class="view_products" style="margin-bottom:20px"><h5
+                    class="card-title">{{ item.title }}</h5></a>
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="text-muted">{{ item.price }} руб/50г</h6>
+                <a class="cart_link" href="{{ item.get_absolute_url }}">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Подробнее</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
